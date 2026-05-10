@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mangal Provision Super Shop - Order Groceries</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div><div class="brand">🌾 Mangal Provision</div><div class="subbrand">Super Shop · Pune</div></div>
+    <a class="whatsapp" id="waTop" target="_blank">WhatsApp</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-card">
+        <p class="pill">Fresh groceries & premium dry fruits</p>
+        <h1>Order groceries easily from your mobile.</h1>
+        <p class="muted">Select products, enter delivery details, and submit. Owner receives order in Google Sheet and WhatsApp.</p>
+        <div class="hero-actions">
+          <a href="#products" class="btn primary">Start Order</a>
+          <a href="#cart" class="btn light">View Cart <span id="cartCountTop">0</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="customer-card" id="details">
+      <h2>Customer Details</h2>
+      <div class="grid2">
+        <label>Full Name *<input id="name" placeholder="Enter full name" /></label>
+        <label>Mobile Number *<input id="phone" placeholder="10 digit mobile number" inputmode="tel" /></label>
+      </div>
+      <label>Delivery Address *<textarea id="address" placeholder="Flat/house no., society, area, landmark"></textarea></label>
+      <div class="grid2">
+        <label>Preferred Delivery Time
+          <select id="deliveryTime">
+            <option>Any time</option><option>Morning 9 AM - 12 PM</option><option>Afternoon 12 PM - 4 PM</option><option>Evening 4 PM - 8 PM</option>
+          </select>
+        </label>
+        <label>Payment Preference
+          <select id="payment">
+            <option>Cash on Delivery</option><option>UPI / GPay / PhonePe</option><option>Online Transfer</option>
+          </select>
+        </label>
+      </div>
+      <label>Special Instructions<textarea id="notes" placeholder="Pack separately, call before delivery, brand preference..."></textarea></label>
+    </section>
+
+    <section id="products" class="products-section">
+      <div class="section-head">
+        <div><h2>Select Products</h2><p class="muted">Use search or category filter. Qty supports 0.5 kg steps.</p></div>
+        <input id="search" class="search" placeholder="Search rice, dal, kaju..." />
+      </div>
+      <div id="categoryTabs" class="tabs"></div>
+      <div id="productList"></div>
+    </section>
+
+    <section id="cart" class="cart-card">
+      <h2>🧾 Order Summary</h2>
+      <div id="cartItems" class="cart-items empty">Add products above to see your order summary.</div>
+      <div class="total-row"><span>Estimated Total</span><strong id="total">₹0</strong></div>
+      <button id="submitBtn" class="btn primary wide">📦 Place My Order</button>
+      <p class="small muted">Order will be saved to Google Sheet. WhatsApp confirmation opens after submission.</p>
+    </section>
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="products.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
