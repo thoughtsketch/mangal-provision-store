@@ -3,7 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#e85d13" />
+  <meta name="description" content="Order groceries and dry fruits from Mangal Provision Super Shop, Pune. Fast WhatsApp delivery." />
   <title>Mangal Provision Super Shop - Order Groceries</title>
+  <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🌾</text></svg>' />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -50,23 +53,43 @@
       <label>Special Instructions<textarea id="notes" placeholder="Pack separately, call before delivery, brand preference..."></textarea></label>
     </section>
 
-    <section id="products" class="products-section">
-      <div class="section-head">
-        <div><h2>Select Products</h2><p class="muted">Use search or category filter. Qty supports 0.5 kg steps.</p></div>
-        <input id="search" class="search" placeholder="Search rice, dal, kaju..." />
-      </div>
-      <div id="categoryTabs" class="tabs"></div>
-      <div id="productList"></div>
-    </section>
+    <div class="shop-grid">
+      <section id="products" class="products-section">
+        <div class="section-head">
+          <div><h2>Select Products</h2><p class="muted">Use search or category filter. Qty supports 0.5 kg steps.</p></div>
+          <input id="search" class="search" placeholder="Search rice, dal, kaju..." />
+        </div>
+        <div id="categoryTabs" class="tabs"></div>
+        <div id="productList"></div>
+      </section>
 
-    <section id="cart" class="cart-card">
-      <h2>🧾 Order Summary</h2>
-      <div id="cartItems" class="cart-items empty">Add products above to see your order summary.</div>
-      <div class="total-row"><span>Estimated Total</span><strong id="total">₹0</strong></div>
-      <button id="submitBtn" class="btn primary wide">📦 Place My Order</button>
-      <p class="small muted">Order will be saved to Google Sheet. WhatsApp confirmation opens after submission.</p>
-    </section>
+      <section id="cart" class="cart-card">
+        <h2>🧾 Order Summary</h2>
+        <div id="cartItems" class="cart-items empty">Add products above to see your order summary.</div>
+        <div class="total-row"><span>Estimated Total</span><strong id="total">₹0</strong></div>
+        <button id="submitBtn" class="btn primary wide">📦 Place My Order</button>
+        <p class="small muted">Order will be saved to Google Sheet. WhatsApp confirmation opens after submission.</p>
+      </section>
+    </div>
   </main>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-title">🌾 Mangal Provision Super Shop</div>
+        <div class="muted small">Pune, Maharashtra · Fresh groceries & dry fruits</div>
+      </div>
+      <div>
+        <div class="muted small">Order on WhatsApp</div>
+        <a class="footer-link" href="https://wa.me/919403393688" target="_blank" rel="noopener">+91 94033 93688</a>
+      </div>
+      <div>
+        <div class="muted small">Call the shop</div>
+        <a class="footer-link" href="tel:+918805265233">+91 88052 65233</a>
+      </div>
+    </div>
+    <p class="small muted center">Orders are processed manually by the shop owner. WhatsApp confirmation opens after every order.</p>
+  </footer>
 
   <div id="toast" class="toast"></div>
 
