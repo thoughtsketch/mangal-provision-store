@@ -180,19 +180,48 @@ function whatsAppText(order) {
   return msg;
 }
 
-async function saveToSheet(order) {
-  if (!config.appsScriptUrl || config.appsScriptUrl.includes('PASTE_YOUR')) return false;
-  try {
-    await fetch(config.appsScriptUrl, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(order)
-    });
-    return true;
-  } catch (e) {
-    return false;
+/**
+ * Google Web App URLs return 302 to script.googleusercontent.com. fetch() follows
+ * 302 by resubmitting as GET, so doPost never receives the body. A real HTML form
+ * POST (urlencoded) keeps POST through the redirect and reaches doPost reliably.
+ */
+function saveToSheet(order) {
+  if (!config.appsScriptUrl || config.appsScriptUrl.includes('PASTE_YOUR')) {
+    return Promise.resolve(false);
   }
+  return new Promise(resolve => {
+    try {
+      const iframe = document.createElement('iframe');
+      iframe.name = 'sheet_' + Date.now();
+      iframe.setAttribute('aria-hidden', 'true');
+      iframe.style.cssText = 'position:absolute;width:0;height:0;border:0;visibility:hidden';
+      document.body.appendChild(iframe);
+
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = config.appsScriptUrl;
+      form.target = iframe.name;
+      form.enctype = 'application/x-www-form-urlencoded';
+      form.acceptCharset = 'UTF-8';
+
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = 'order';
+      input.value = JSON.stringify(order);
+      form.appendChild(input);
+
+      document.body.appendChild(form);
+      form.submit();
+
+      setTimeout(() => {
+        form.remove();
+        iframe.remove();
+        resolve(true);
+      }, 1200);
+    } catch (e) {
+      resolve(false);
+    }
+  });
 }
 
 async function submitOrder() {

@@ -53,6 +53,24 @@ Open the Web app URL in a browser. You should see:
 { "ok": true, "service": "Mangal Provision Orders", "time": "..." }
 ```
 
+### Script not bound to the Sheet?
+
+If you created the project at [script.google.com](https://script.google.com) instead of **Extensions → Apps Script** inside the spreadsheet, `getActiveSpreadsheet()` has nothing to attach to.
+
+Fix: in Apps Script, **Project Settings → Script properties** → add a property:
+
+- **Property:** `SPREADSHEET_ID`  
+- **Value:** the ID from your Sheet URL  
+  `https://docs.google.com/spreadsheets/d/<THIS_PART>/edit`
+
+Save, then **Deploy → Manage deployments → New version → Deploy** (or edit deployment and pick a new version).
+
+### Orders not appearing in the Sheet?
+
+The Web App URL returns a **302 redirect**. Browser **`fetch()`** often turns the follow-up request into **GET**, so **`doPost` never runs**. This project instead submits orders with a **hidden HTML form POST** (see `saveToSheet` in `app.js`), which keeps **POST** through the redirect so rows append correctly.
+
+After changing `Code.gs`, always publish a **new deployment version**.
+
 ---
 
 ## 3. Deploy free (pick one)
