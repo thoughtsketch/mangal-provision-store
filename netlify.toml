@@ -1,0 +1,6 @@
+# Static site + serverless proxy so orders reach Google Apps Script (POST + redirects).
+# Set env var APPS_SCRIPT_WEBAPP_URL in Netlify UI to your /exec Web App URL (same as products.js appsScriptUrl).
+
+[build]
+  publish = "."
+  functions = "netlify/functions"

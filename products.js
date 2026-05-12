@@ -3,7 +3,8 @@ window.SHOP_CONFIG = {
   "ownerWhatsApp": "919403393688",
   "alternatePhone": "+91 88052 65233",
   "location": "Pune, Maharashtra",
-  "appsScriptUrl": "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE"
+  "appsScriptUrl": "https://script.google.com/macros/s/AKfycby-zGl-Y-QRJX1F_aAhdflhcP_aYiL-EFEtZTvHIv4ls3sbKZ3M4EnKdrAUzmwqPqenuA/exec",
+  "orderProxyUrl": ""
 };
 window.CATALOG = {
   "Rice": [

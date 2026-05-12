@@ -180,15 +180,66 @@ function whatsAppText(order) {
   return msg;
 }
 
+function sheetDebug() {
+  try {
+    return /(?:\?|&)sheetdebug=1(?:&|$)/.test(window.location.search) ||
+      window.localStorage.getItem('mangalSheetDebug') === '1';
+  } catch (_) {
+    return false;
+  }
+}
+
+function logSheet(...args) {
+  if (sheetDebug()) console.log('[Mangal sheet]', ...args);
+}
+
 /**
- * Google Web App URLs return 302 to script.googleusercontent.com. fetch() follows
- * 302 by resubmitting as GET, so doPost never receives the body. A real HTML form
- * POST (urlencoded) keeps POST through the redirect and reaches doPost reliably.
+ * 1) Prefer Netlify function proxy (POST + redirects handled in Node) when available.
+ * 2) Fallback: hidden form POST into iframe (works in some browsers; may be blocked by policies).
  */
 function saveToSheet(order) {
   if (!config.appsScriptUrl || config.appsScriptUrl.includes('PASTE_YOUR')) {
     return Promise.resolve(false);
   }
+
+  const proxyUrl = config.orderProxyUrl ||
+    (typeof location !== 'undefined' && /\.netlify\.app$/i.test(location.hostname)
+      ? '/.netlify/functions/save-order'
+      : '');
+
+  if (proxyUrl) {
+    return fetch(proxyUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json;charset=utf-8' },
+      body: JSON.stringify(order)
+    })
+      .then(async r => {
+        const text = await r.text();
+        logSheet('proxy status', r.status, text.slice(0, 500));
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch (_) {
+          data = { ok: false, error: 'Non-JSON response' };
+        }
+        if (r.ok && data.ok !== false) return true;
+        console.warn('[Mangal] Order proxy failed:', r.status, data);
+        return formPostToSheet_(order);
+      })
+      .catch(err => {
+        console.warn('[Mangal] Order proxy error:', err);
+        return formPostToSheet_(order);
+      });
+  }
+
+  return formPostToSheet_(order);
+}
+
+/**
+ * Google Web App URLs return 302 to script.googleusercontent.com. fetch() in the
+ * browser often drops POST on redirect. Form POST into iframe is a fallback.
+ */
+function formPostToSheet_(order) {
   return new Promise(resolve => {
     try {
       const iframe = document.createElement('iframe');
@@ -211,14 +262,24 @@ function saveToSheet(order) {
       form.appendChild(input);
 
       document.body.appendChild(form);
+      logSheet('form POST fallback to', config.appsScriptUrl);
       form.submit();
 
-      setTimeout(() => {
-        form.remove();
-        iframe.remove();
+      let finished = false;
+      const cleanup = () => {
+        if (finished) return;
+        finished = true;
+        try { form.remove(); } catch (_) {}
+        try { iframe.remove(); } catch (_) {}
         resolve(true);
-      }, 1200);
+      };
+      iframe.addEventListener('load', () => {
+        logSheet('iframe load');
+        setTimeout(cleanup, 500);
+      }, { once: true });
+      setTimeout(cleanup, 4500);
     } catch (e) {
+      logSheet('form error', e);
       resolve(false);
     }
   });

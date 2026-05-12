@@ -67,19 +67,45 @@ Save, then **Deploy → Manage deployments → New version → Deploy** (or edit
 
 ### Orders not appearing in the Sheet?
 
-The Web App URL returns a **302 redirect**. Browser **`fetch()`** often turns the follow-up request into **GET**, so **`doPost` never runs**. This project instead submits orders with a **hidden HTML form POST** (see `saveToSheet` in `app.js`), which keeps **POST** through the redirect so rows append correctly.
+Google’s Web App URL returns **302 redirects**. In the browser, **`fetch()` often turns the follow-up into GET**, so `doPost` never receives your JSON.
 
-After changing `Code.gs`, always publish a **new deployment version**.
+**On Netlify:** set **`APPS_SCRIPT_WEBAPP_URL`** (see §3). The storefront calls **`/.netlify/functions/save-order`**, which forwards the JSON using **Node** (redirects + POST body behave correctly). On **`*.netlify.app`** this is automatic; on a **custom domain** set `"orderProxyUrl": "/.netlify/functions/save-order"` in `products.js`.
+
+**Fallback:** hidden **form POST** into an iframe (`formPostToSheet_` in `app.js`). If the sheet is still empty, use **Executions** in Apps Script and **`?sheetdebug=1`** (see “Debug blank Orders sheet” above).
+
+After changing `Code.gs`, republish a **new deployment version** in Apps Script.
+
+### Debug blank `Orders` sheet
+
+1. **Apps Script → Executions** — open the latest run after you click *Place My Order*. If `doPost` throws (e.g. no spreadsheet), the error appears there.
+2. **Script bound to the Sheet?** Open the script via **Extensions → Apps Script** on the same file that has the `Orders` tab. If the project was created at script.google.com, set **`SPREADSHEET_ID`** (see above).
+3. **Browser console** — add `?sheetdebug=1` to your site URL or run `localStorage.setItem('mangalSheetDebug','1')` and reload. Submit an order; logs show whether the **Netlify proxy** or **form fallback** ran and the proxy HTTP status.
+4. **Network tab** — filter **All** (not only Fetch/XHR). Look for `save-order` (Netlify) or **POST** to `script.google.com`.
 
 ---
 
 ## 3. Deploy free (pick one)
 
+### Netlify (recommended — Git + order proxy)
+
+1. Connect this repo in Netlify (or use Drop for a one-off upload).
+2. **Important — orders to Google Sheet:** set an environment variable in **Site configuration → Environment variables**:
+   - **Key:** `APPS_SCRIPT_WEBAPP_URL`
+   - **Value:** the same URL as `appsScriptUrl` in `products.js` (your Web App `/exec` URL).
+3. Redeploy the site so the serverless function is active.
+
+The site calls **`/.netlify/functions/save-order`**, which forwards the order JSON to Apps Script using **Node** (handles Google’s **302 redirects** correctly). On `*.netlify.app` this is used automatically. If you use a **custom domain**, set in `products.js`:
+
+```js
+"orderProxyUrl": "/.netlify/functions/save-order"
+```
+
 ### Netlify Drop (fastest — drag & drop)
 
 1. Go to <https://app.netlify.com/drop>.
 2. Drag the **project folder** in.
-3. Done. Netlify gives you a public URL.
+3. Still add **`APPS_SCRIPT_WEBAPP_URL`** under site settings if you need the order proxy (Drop sites support env vars after creation).
+4. Netlify gives you a public URL.
 
 ### GitHub Pages
 
@@ -130,9 +156,12 @@ window.SHOP_CONFIG = {
   ownerWhatsApp: "919403393688",      // country code, no +, no spaces
   alternatePhone: "+91 88052 65233",
   location: "Pune, Maharashtra",
-  appsScriptUrl: "..."                 // your deployed Web app URL
+  appsScriptUrl: "...",               // Web App /exec URL
+  orderProxyUrl: ""                   // optional; use "/.netlify/functions/save-order" on Netlify custom domain
 };
 ```
+
+On Netlify, also set environment variable **`APPS_SCRIPT_WEBAPP_URL`** to the same value as **`appsScriptUrl`** so the `save-order` function can forward orders.
 
 The product catalog (`window.CATALOG`) is plain JSON — edit prices and items directly.
 
