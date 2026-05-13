@@ -478,12 +478,6 @@
       "price": 1800,
       "id": "walnut-medium-quality-standard",
       "unit": "kg"
-    },
-    {
-      "name": "Medium Quality (Economy)",
-      "price": 1600,
-      "id": "walnut-medium-quality-economy",
-      "unit": "kg"
     }
   ],
   "Raisins": [
