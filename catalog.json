@@ -2,7 +2,7 @@
   "Rice": [
     {
       "name": "Ambe Mohar (Premium)",
-      "price": 150,
+      "price": 160,
       "id": "rice-ambe-mohar-premium",
       "unit": "kg"
     },
@@ -41,13 +41,13 @@
     },
     {
       "name": "Laso Basmati",
-      "price": 130,
+      "price": 145,
       "id": "rice-laso-basmati",
       "unit": "kg"
     },
     {
       "name": "Rajbhog Basmati",
-      "price": 110,
+      "price": 120,
       "id": "rice-rajbhog-basmati",
       "unit": "kg"
     },
@@ -59,7 +59,7 @@
     },
     {
       "name": "Daily Khichdi Basmati",
-      "price": 75,
+      "price": 80,
       "id": "rice-daily-khichdi-basmati",
       "unit": "kg"
     }
@@ -67,13 +67,13 @@
   "Wheat": [
     {
       "name": "M.P. Shihor Chandusi/Sarbati",
-      "price": 45,
+      "price": 46,
       "id": "wheat-m-p-shihor-chandusi-sarbati",
       "unit": "kg"
     },
     {
       "name": "Hiro Honda Chandusi",
-      "price": 68,
+      "price": 75,
       "id": "wheat-hiro-honda-chandusi",
       "unit": "kg"
     },
@@ -123,8 +123,8 @@
       "name": "Tur Dal",
       "variants": [
         {
-          "label": "Polished ₹130",
-          "price": 130
+          "label": "Polished ₹140",
+          "price": 140
         },
         {
           "label": "Without Polish ₹150",
@@ -136,7 +136,7 @@
     },
     {
       "name": "Gavrani Shetkari Math",
-      "price": 170,
+      "price": 180,
       "id": "pulses-gavrani-shetkari-math",
       "unit": "kg"
     },
@@ -148,8 +148,8 @@
           "price": 130
         },
         {
-          "label": "Without Polish ₹130",
-          "price": 130
+          "label": "Without Polish ₹140",
+          "price": 140
         }
       ],
       "id": "pulses-moong-dal",
@@ -220,6 +220,10 @@
         {
           "label": "₹70/kg",
           "price": 70
+        },
+        {
+          "label": "₹75/kg",
+          "price": 75
         }
       ],
       "id": "millets-solapur-dadar",
@@ -229,25 +233,25 @@
   "Mirchi Powder": [
     {
       "name": "Gavrani",
-      "price": 480,
+      "price": 460,
       "id": "mirchi-powder-gavrani",
       "unit": "kg"
     },
     {
       "name": "Premium",
-      "price": 520,
+      "price": 510,
       "id": "mirchi-powder-premium",
       "unit": "kg"
     },
     {
       "name": "Rasgulla",
-      "price": 700,
+      "price": 660,
       "id": "mirchi-powder-rasgulla",
       "unit": "kg"
     },
     {
       "name": "Chapata",
-      "price": 700,
+      "price": 660,
       "id": "mirchi-powder-chapata",
       "unit": "kg"
     },
@@ -259,7 +263,7 @@
     },
     {
       "name": "Rasgulla–Chapata Mix",
-      "price": 700,
+      "price": 660,
       "id": "mirchi-powder-rasgulla-chapata-mix",
       "unit": "kg"
     }
@@ -267,13 +271,13 @@
   "Masala": [
     {
       "name": "Khada Masala (24 items, Dhane 1 kg)",
-      "price": 1800,
+      "price": 1880,
       "unit": "pkt",
       "id": "masala-khada-masala-24-items-dhane-1-kg"
     },
     {
       "name": "Khada Masala Powder",
-      "price": 1900,
+      "price": 1950,
       "unit": "pkt",
       "id": "masala-khada-masala-powder"
     }
@@ -281,19 +285,28 @@
   "Whole Red Chilli": [
     {
       "name": "Bedgi Whole Red Chilli",
-      "price": 440,
+      "price": 580,
       "id": "whole-red-chilli-bedgi-whole-red-chilli",
       "unit": "kg"
     },
     {
       "name": "Gavarani Red Chilli",
-      "price": 370,
       "id": "whole-red-chilli-gavarani-red-chilli",
-      "unit": "kg"
+      "unit": "kg",
+      "variants": [
+        {
+          "label": "₹300/kg",
+          "price": 300
+        },
+        {
+          "label": "₹350/kg",
+          "price": 350
+        }
+      ]
     },
     {
       "name": "Reshampatta Red Chilli",
-      "price": 500,
+      "price": 580,
       "id": "whole-red-chilli-reshampatta-red-chilli",
       "unit": "kg"
     },
@@ -305,7 +318,7 @@
     },
     {
       "name": "Chapata Red Chilli",
-      "price": 380,
+      "price": 450,
       "id": "whole-red-chilli-chapata-red-chilli",
       "unit": "kg"
     }
@@ -325,9 +338,18 @@
     },
     {
       "name": "Jira Kamal",
-      "price": 330,
       "id": "other-spices-jira-kamal",
-      "unit": "kg"
+      "unit": "kg",
+      "variants": [
+        {
+          "label": "₹300/kg",
+          "price": 300
+        },
+        {
+          "label": "₹330/kg",
+          "price": 330
+        }
+      ]
     },
     {
       "name": "Badishop (Fennel) Rajwadi",
@@ -349,8 +371,12 @@
           "price": 240
         },
         {
-          "label": "Premium ₹270",
-          "price": 270
+          "label": "Indori ₹260",
+          "price": 260
+        },
+        {
+          "label": "Indori Premium ₹280",
+          "price": 280
         }
       ],
       "id": "other-spices-dhane-coriander-seeds",
@@ -358,9 +384,22 @@
     },
     {
       "name": "Dhana Powder (Coriander Powder)",
-      "price": 300,
       "id": "other-spices-dhana-powder-coriander-powder",
-      "unit": "kg"
+      "unit": "kg",
+      "variants": [
+        {
+          "label": "Medium ₹240",
+          "price": 240
+        },
+        {
+          "label": "Medium ₹260",
+          "price": 260
+        },
+        {
+          "label": "Premium ₹300",
+          "price": 300
+        }
+      ]
     }
   ],
   "Cashews": [
@@ -398,19 +437,19 @@
   "Almonds": [
     {
       "name": "Almonds Grade 1",
-      "price": 800,
+      "price": 850,
       "id": "almonds-almonds-grade-1",
       "unit": "kg"
     },
     {
       "name": "Almonds Grade 2",
-      "price": 900,
+      "price": 950,
       "id": "almonds-almonds-grade-2",
       "unit": "kg"
     },
     {
       "name": "Almonds Grade 3",
-      "price": 1000,
+      "price": 1050,
       "id": "almonds-almonds-grade-3",
       "unit": "kg"
     },
@@ -468,7 +507,7 @@
     },
     {
       "name": "Black Seedless Bold Premium",
-      "price": 1100,
+      "price": 1200,
       "id": "raisins-black-seedless-bold-premium",
       "unit": "kg"
     },
@@ -506,7 +545,7 @@
     },
     {
       "name": "Seedless Falcon Red",
-      "price": 200,
+      "price": 220,
       "id": "dates-seedless-falcon-red",
       "unit": "kg"
     },
@@ -578,13 +617,13 @@
   "Awala & Jardalu": [
     {
       "name": "Sweet Gol Awala",
-      "price": 320,
+      "price": 340,
       "id": "awala-jardalu-sweet-gol-awala",
       "unit": "kg"
     },
     {
       "name": "Sweet Awala Piece",
-      "price": 300,
+      "price": 320,
       "id": "awala-jardalu-sweet-awala-piece",
       "unit": "kg"
     },
@@ -596,9 +635,18 @@
     },
     {
       "name": "Jardalu (Dried Apricot)",
-      "price": 800,
       "id": "awala-jardalu-jardalu-dried-apricot",
-      "unit": "kg"
+      "unit": "kg",
+      "variants": [
+        {
+          "label": "₹800/kg",
+          "price": 800
+        },
+        {
+          "label": "₹1000/kg",
+          "price": 1000
+        }
+      ]
     }
   ]
 }
