@@ -272,19 +272,21 @@ function formPostToSheet_(order) {
       logSheet('form POST to', config.appsScriptUrl);
       form.submit();
 
-      let finished = false;
-      const cleanup = () => {
-        if (finished) return;
-        finished = true;
-        try { form.remove(); } catch (_) {}
-        try { iframe.remove(); } catch (_) {}
-        resolve(true);
-      };
       iframe.addEventListener('load', () => {
         logSheet('iframe load');
-        setTimeout(cleanup, 500);
       }, { once: true });
-      setTimeout(cleanup, 4500);
+
+      // POST is sent when submit() returns; do not remove the iframe immediately — that
+      // aborts Google's redirect chain and DevTools shows "exec" as (canceled) even when
+      // doPost already ran. Remove the form after navigation starts; drop iframe later.
+      setTimeout(() => {
+        try { form.remove(); } catch (_) {}
+      }, 500);
+      setTimeout(() => {
+        try { iframe.remove(); } catch (_) {}
+      }, 10000);
+
+      resolve(true);
     } catch (e) {
       logSheet('form error', e);
       resolve(false);
